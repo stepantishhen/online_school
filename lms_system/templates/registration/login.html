@@ -1,0 +1,42 @@
+{% extends 'lms_system/base.html' %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h2 class="text-center">Вход</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <div class="d-flex justify-content-center mt-3">
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="submit" class="btn btn-primary">Войти</button>
+      <a href="{% url 'signup' %}" class="btn btn-outline-primary">Зарегистрироваться</a>
+    </div>
+  </div>
+</form>
+<!--<form method="post">-->
+<!--  {% csrf_token %}-->
+<!--  {{ form.non_field_errors }}-->
+<!--  <label for="{{ form.username.id_for_label }}" class="form-label mt-2">{{ form.username.label }}</label>-->
+<!--  <input type="text" class="form-control mt-1" id="{{ form.username.id }}" placeholder="Введите имя пользователя" required>-->
+<!--  <label for="{{ form.password.id_for_label }}" class="form-label mt-2">{{ form.password.label }}</label>-->
+<!--  <input type="password" class="form-control mt-1" id="{{ form.password.id }}" placeholder="Введите пароль" required>-->
+<!--  <div class="d-flex justify-content-center">-->
+<!--    <button class="btn btn-primary mt-3" type="submit">Войти</button>-->
+<!--  </div>-->
+<!--  {% if form.errors %}-->
+<!--    {% for field in form %}-->
+<!--        {% for error in field.errors %}-->
+<!--            <div class="alert alert-danger">-->
+<!--                <strong>{{ error|escape }}</strong>-->
+<!--            </div>-->
+<!--        {% endfor %}-->
+<!--    {% endfor %}-->
+<!--    {% for error in form.non_field_errors %}-->
+<!--        <div class="alert alert-danger">-->
+<!--            <strong>{{ error|escape }}</strong>-->
+<!--        </div>-->
+<!--    {% endfor %}-->
+<!--  {% endif %}-->
+<!--</form>-->
+{% endblock content %}

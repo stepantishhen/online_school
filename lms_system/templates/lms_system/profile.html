@@ -1,0 +1,48 @@
+{% extends "lms_system/base.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <div class="row">
+        <div class="col">
+            <h2>Мои курсы</h2>
+            {% for i in courses %}
+            <div class="list-group">
+                <a href="{% url 'crs_page' i.pk %}" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">{{ i.title }} | {{ i.form }} класс</h5>
+                      <small>{{ i.time_create|date:'F' }}</small>
+                    </div>
+                    <i class="mb-1">Преподаватель: {{ i.teacher }}</i>
+                    <p class="mb-1">{{ i.description }}</p>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+<!--        <div class="col">-->
+<!--            <h2>Ближайшее занятие</h2>-->
+<!--            <div class="list-group">-->
+<!--              <a href="#" class="list-group-item list-group-item-action active" aria-current="true">-->
+<!--                <div class="d-flex w-100 justify-content-between">-->
+<!--                  <h5 class="mb-1">Название занятия</h5>-->
+<!--                  <small>18:00</small>-->
+<!--                </div>-->
+<!--                <p class="mb-1">Краткое описание</p>-->
+<!--              </a>-->
+<!--              <a href="#" class="list-group-item list-group-item-action" aria-current="true">-->
+<!--                <div class="d-flex w-100 justify-content-between">-->
+<!--                  <h5 class="mb-1">Название занятия</h5>-->
+<!--                  <small>18:00</small>-->
+<!--                </div>-->
+<!--                <p class="mb-1">Краткое описание</p>-->
+<!--              </a>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+{% elif current_user.is_authenticated and current_user.role == 'admin' or current_user.role == 'teacher' %}
+    <div class="row">
+        <div class="list-group">
+            <a href="{% url 'cr_lesson' %}" class="list-group-item list-group-item-action">Создать урок</a>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

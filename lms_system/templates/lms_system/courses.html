@@ -1,0 +1,15 @@
+{% extends "lms_system/base.html" %}
+
+{% block content %}
+    {% for i in courses %}
+        <div class="list-group">
+          <a href="{% url 'pay' i.pk %}" class="list-group-item list-group-item-action mb-2">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{{ i.title }} | {{ i.form }} класс</h5>
+              <small class="text-muted">{{ i.cost }} рублей</small>
+            </div>
+            <p class="mb-1">{{ i.teacher }}</p>
+          </a>
+        </div>
+    {% endfor %}
+{% endblock %}
