@@ -12,8 +12,7 @@ urlpatterns = [
     path('', include('lms_system.urls')),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler404 = page_not_found
 handler500 = page_error_view
