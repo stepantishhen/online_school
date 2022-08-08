@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'online_school.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-if DEBUG:
+if DEBUG == True:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -161,7 +161,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
-if DEBUG:
+if not DEBUG:
     django_heroku.settings(locals())
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
