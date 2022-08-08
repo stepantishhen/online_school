@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'online_school.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-if DEBUG == True:
+if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
