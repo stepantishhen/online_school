@@ -74,10 +74,13 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          </li>
         </ul>
         <form class="d-flex" role="search">
+          {% if user.is_authenticated %}
+          <a class="btn btn-outline-primary" type="submit" href="{% url 'profile' %}">{{ user.username }}</a>
+          {% else %}
           <a class="btn btn-outline-primary" type="submit" href="/accounts/login">Вход</a>
+          {% endif %}
         </form>
       </div>
     </div>
@@ -85,7 +88,6 @@
 </header>
 
 <main>
-
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>

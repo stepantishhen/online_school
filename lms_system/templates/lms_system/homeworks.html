@@ -1,0 +1,22 @@
+{% extends "lms_system/base.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <div class="row">
+        <div class="col">
+            {% for i in homeworks %}
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">{{ i.lesson }} | {{ i.course }} ДЗ</h5>
+                      <small>Дедлайн: {{ i.deadline }}</small>
+                    </div>
+                    <i class="mb-1">Преподаватель: {{ i.teacher }}</i>
+                    <p class="mb-1">Дата создания: {{ i.time_create }}</p>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

@@ -13,6 +13,11 @@ from django.dispatch import receiver
 # Фильтр(все не соответствующие критерию записи): name_model.objects.filter(cond)
 # Взятие записи с генерацией исключения: name_model.objects.get(cond)
 # Сортировка: name_model.objects.order_by(field)
+STATUS_CHOICES = (
+    ('t', 'Учитель'),
+    ('s', 'Ученик'),
+    ('a', 'Администратор'),
+)
 
 
 class Course(models.Model):
@@ -27,7 +32,7 @@ class Course(models.Model):
     time_create = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
 
     def __str__(self):
-        return f'{self.title} | {str(self.form)} класс'
+        return f'{self.title}'
 
     class Meta:
         verbose_name = 'Курс'
@@ -35,10 +40,29 @@ class Course(models.Model):
         ordering = ['-form', 'teacher']
 
 
+class Student(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    first_name = models.CharField(max_length=255, verbose_name='Имя')
+    second_name = models.CharField(max_length=255, verbose_name='Фамилия')
+    tg_profile = models.URLField(verbose_name='Ссылка на Телаграмм')
+    email = models.EmailField(verbose_name='Почта')
+    course = models.ManyToManyField(Course, verbose_name='Курс', null=True, blank=True)
+    role = models.CharField(max_length=255, choices=STATUS_CHOICES, default='s', verbose_name='Роль')
+
+    def __str__(self):
+        return f'{self.first_name} {self.second_name}'
+
+    class Meta:
+        verbose_name = 'Ученик'
+        verbose_name_plural = 'Ученики'
+        ordering = ['first_name', 'second_name']
+
+
 class Lesson(models.Model):
     title = models.CharField(max_length=255, verbose_name='Название')
     description = models.CharField(max_length=255, verbose_name='Описание')
     files_url = models.URLField(verbose_name='Ссылка на файлы')
+    survey_url = models.URLField(verbose_name='Ссылка на форму с д/з')
     is_publish = models.BooleanField(default=False, verbose_name='Опубликовано?')
     time_create = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     course_id = models.ForeignKey(Course, null=True, on_delete=models.CASCADE, verbose_name='Курс')
@@ -52,9 +76,38 @@ class Lesson(models.Model):
         ordering = ['-time_create']
 
 
-class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    course = models.ManyToManyField(Course)
+# class HomeworkTeacher(models.Model):
+#     course = models.OneToOneField(Course, on_delete=models.CASCADE, verbose_name='Название курса')
+#     lesson = models.OneToOneField(Lesson, on_delete=models.CASCADE, verbose_name='Название урока')
+#     questions = models.FileField(verbose_name='Вопросы')
+#     answers = models.TextField(verbose_name='Ответы')
+#     deadline = models.DateTimeField(verbose_name='Дедлайн')
+#     time_create = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+#
+#     def __str__(self):
+#         return f'{self.lesson} домашнее задание'
+#
+#     class Meta:
+#         verbose_name = 'Домашнее задание(учителям)'
+#         verbose_name_plural = 'Домашние задания(учителям)'
+#         ordering = ['course', 'time_create']
+
+
+# class HomeworkStudent(models.Model):
+#     student = models.OneToOneField(Student, on_delete=models.CASCADE, verbose_name='Ученик')
+#     course = models.OneToOneField(Course, on_delete=models.CASCADE, verbose_name='Название курса')
+#     lesson = models.OneToOneField(Lesson, on_delete=models.CASCADE, verbose_name='Название урока')
+#     answers = models.FileField(verbose_name='Ответы')
+#     score = models.IntegerField(verbose_name='Балл')
+#     time_done = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+#
+#     def __str__(self):
+#         return f'{self.lesson} домашнее задание'
+#
+#     class Meta:
+#         verbose_name = 'Домашнее задание(ученикам)'
+#         verbose_name_plural = 'Домашние задания(ученикам)'
+#         ordering = ['course', 'time_done']
 
 
 @receiver(post_save, sender=User)

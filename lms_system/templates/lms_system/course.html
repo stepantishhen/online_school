@@ -3,19 +3,22 @@
 {% block content %}
     <div class="row">
         <div class="col">
-            <h1>{{ course.title }}</h1>
+            <h1>{{ course.title }} | {{ course.form }} класс</h1>
         </div>
         <div class="col">
             <a target="_blank" rel="noopener noreferrer" href="{{ course.tg_channel }}" class="btn btn-primary w-100">Телеграмм канал</a>
         </div>
         {% for i in lessons %}
-        <div class="row mt-3">
+        <div class="row mt-3 text-center">
                 <div class="col">
                     <div class="card text-center">
                       <div class="card-body">
                         <h5 class="card-title">{{ i.title }}</h5>
                         <p class="card-text">{{ i.description }}</p>
-                        <a target="_blank" rel="noopener noreferrer" href="{{ i.files_url }}" class="btn btn-primary">К файлам занятия</a>
+                        <div class="btn-group-vertical">
+                          <a target="_blank" rel="noopener noreferrer" href="{{ i.files_url }}" class="btn btn-primary">К файлам занятия</a>
+                          <a target="_blank" rel="noopener noreferrer" href="{{ i.survey_url }}" class="btn btn-outline-primary">Домашнее задание</a>
+                        </div>
                       </div>
                     </div>
                 </div>

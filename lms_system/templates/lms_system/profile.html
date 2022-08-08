@@ -4,7 +4,6 @@
 {% if user.is_authenticated %}
     <div class="row">
         <div class="col">
-            <h2>Мои курсы</h2>
             {% for i in courses %}
             <div class="list-group">
                 <a href="{% url 'crs_page' i.pk %}" class="list-group-item list-group-item-action">
@@ -18,6 +17,9 @@
             </div>
             {% endfor %}
         </div>
+    </div>
+{% endif %}
+{% endblock %}
 <!--        <div class="col">-->
 <!--            <h2>Ближайшее занятие</h2>-->
 <!--            <div class="list-group">-->
@@ -37,12 +39,7 @@
 <!--              </a>-->
 <!--            </div>-->
 <!--        </div>-->
-    </div>
-{% elif current_user.is_authenticated and current_user.role == 'admin' or current_user.role == 'teacher' %}
-    <div class="row">
-        <div class="list-group">
-            <a href="{% url 'cr_lesson' %}" class="list-group-item list-group-item-action">Создать урок</a>
-        </div>
-    </div>
-{% endif %}
-{% endblock %}
+<!--    </div>-->
+
+
+
