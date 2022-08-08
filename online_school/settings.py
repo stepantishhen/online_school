@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-unc+3))g87jw)0wcd_^kh01%j*ee@&$qk_z7s!pv*c+%tp)5yi
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ['brainhot.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['brainhot.herokuapp.com']
 env = environ.Env()
 environ.Env.read_env()
 # Application definition
