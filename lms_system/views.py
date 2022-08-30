@@ -11,7 +11,7 @@ from lms_system.models import Course
 
 
 def index(request):
-    return render(request, 'lms_system/index.html')
+    return render(request, 'lms_system/index.html', context={'courses': Course.objects.all()})
 
 
 @login_required(login_url='/accounts/login')
